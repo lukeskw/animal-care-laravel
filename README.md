@@ -1,7 +1,7 @@
 # animal-care-laravel
 _A simple laravel based system to help with animal care_
 
-##Technologies used
+## Technologies used
 - MVC architecture
 - Front-end based on HTML, CSS, Bootstrap, JS and jQuery (credits to uBold)
 - Back-end based on PHP, using the famous Laravel 8 framework
@@ -9,7 +9,7 @@ _A simple laravel based system to help with animal care_
 - MySQL Database
 - DomPDF to generate PDF reports.
 
-##System Features
+## System Features
 - Management of Clients, Animals and Procedures
 - Management of the stock
 - Autocomplete features on search bars
