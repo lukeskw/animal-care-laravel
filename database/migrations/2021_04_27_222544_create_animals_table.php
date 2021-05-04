@@ -15,7 +15,7 @@ class CreateAnimalsTable extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
-            $table->string('nome',255)->nullable();
+            $table->string('animal_nome',255)->nullable();
             $table->string('chip',255)->nullable(false);
             //$table->string('tipo',255)->nullable();
             $table->enum('tipo', ['Felino', 'Canino','Equino','Caprino','Bovino','Ave','Reptil']);

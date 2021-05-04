@@ -17,7 +17,7 @@ class ProdutoController extends Controller
       {
           $this->middleware('auth');
       }
-  
+
       /**
        * Display a listing of the resource.
        *
@@ -29,8 +29,20 @@ class ProdutoController extends Controller
              $produtos = Produto::all();
              // $tipos = ['Felino', 'Canino','Equino','Caprino','Bovino','Ave','Reptil'];
              //dd($produtos);
-             return view('dashboard/dash-produto', compact('produtos'));
-              
+             $low_stock = [];
+             foreach($produtos as $p){
+                 if(($p->produto_quantidade)<=3){
+
+                    $low_stock[] = [
+                        'id'=> $p->id,
+                        'nome' => $p->produto_nome,
+                        'quantidade' =>$p->produto_quantidade
+                    ];
+                 };
+             }
+             (json_encode($low_stock,true));
+             return view('dashboard/dash-produto', compact('produtos'))->with('json',$low_stock);
+
           }
       }
     /**
@@ -58,9 +70,9 @@ class ProdutoController extends Controller
         $produtos->produto_valor = $request->input('produto_valor');
         $produtos->produto_descricao = $request->input('produto_descricao');
         $produtos->produto_quantidade = $request->input('produto_quantidade');
-        
+
         $produtos->save();
-        
+
         return redirect(route('produtos.index'));
     }
 
@@ -106,9 +118,9 @@ class ProdutoController extends Controller
         $produtos->produto_valor = $request->input('produto_valor');
         $produtos->produto_descricao = $request->input('produto_descricao');
         $produtos->produto_quantidade = $request->input('produto_quantidade');
- 
+
         $produtos->save();
-        return redirect('produtos');
+        return redirect('produtos')  ;
     }
 
     /**
@@ -121,7 +133,15 @@ class ProdutoController extends Controller
     public function destroy($id)
     {
         $produtos = Produto::find($id);
+
+        try{
         $produtos->delete();
+        }catch(\Exception $e){
+            if( $e->errorInfo[1] == 1451){
+            $e->errorInfo[2] = 'Existe um procedimento que utiliza este produto!';
+            //dd($e->errorInfo);
+            return redirect(route('produtos.index'))->withErrors(['message1'=>$e->errorInfo[2]]);}
+        }
         return redirect(route('produtos.index'));
     }
 }

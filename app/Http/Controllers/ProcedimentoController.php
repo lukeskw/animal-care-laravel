@@ -20,7 +20,7 @@ class ProcedimentoController extends Controller
       {
           $this->middleware('auth');
       }
-  
+
 
     /**
      * Display a listing of the resource.
@@ -40,7 +40,7 @@ class ProcedimentoController extends Controller
            // dd($produto_proced);
             $produtos = json_encode($produtos, true);
             return view('dashboard/dash-procedimento', compact('procedimentos', 'produtos','produto_proced'));
-             
+
          }
     }
 
@@ -65,6 +65,10 @@ class ProcedimentoController extends Controller
         $procedimentos = new Procedimento();
         $select = $request->input('select');
         $qtd = $request->input('qtd');
+
+        if(!$select || !$qtd){
+            return redirect(route('procedimentos.index'))->with('error','Nenhum Produto Informado!!!');
+        }
         //dd(count($array));
         $procedimentos->procedimento_nome = $request->input('procedimento_nome');
         $procedimentos->procedimento_valor = $request->input('procedimento_valor');
@@ -73,6 +77,7 @@ class ProcedimentoController extends Controller
         $procedimentos->save();
         //dd($procedimentos->id);
        // for($i=0 ; $i< count($array); $i++){
+        if($select){
         foreach($select as $key=>$a) {
        // dump($select);
         //dump($qtd[$key]);
@@ -84,9 +89,9 @@ class ProcedimentoController extends Controller
             'created_at' => $ldate,
             'updated_at' => $ldate
             ]);
-        }
+        }}
         // //$produtos->produto_quantidade = $request->input('produto_quantidade');
-        
+
         return redirect(route('procedimentos.index'));
     }
 
@@ -114,7 +119,8 @@ class ProcedimentoController extends Controller
             $procedimentoId = Procedimento::find($id);
             $produtos = Produto::all();
             $produtosJson = json_encode($produtos, true);
-            $prod_proced = DB::table('produtos_procedimentos as pp')->join('produtos', 'produtos.id', '=', 'pp.produto_id')->where('procedimento_id', $procedimentoId->id)->get();
+            $prod_proced = DB::table('produtos_procedimentos as pp')
+            ->join('produtos', 'produtos.id', '=', 'pp.produto_id')->where('procedimento_id', $procedimentoId->id)->get();
            // dd($prod_proced);
             return view('dashboard/dash-procedimentoEdit', compact('produtos','produtosJson', 'procedimentoId','prod_proced'));
             }
@@ -130,7 +136,7 @@ class ProcedimentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $procedimentos = Procedimento::find($id);
         $select = $request->input('select');
         $qtd = $request->input('qtd');
@@ -154,7 +160,7 @@ DB::table('produtos_procedimentos')->where('procedimento_id', '=', $id)->delete(
             ]);
         }
 
-        
+
         return redirect('procedimentos');
     }
 

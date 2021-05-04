@@ -4,24 +4,24 @@
            <!-- ============================================================== -->
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
-        
-        
+
+
             <div class="content-page">
                 <div class="content">
 
                     <!-- Start Content-->
                     <div class="container-fluid">
-                        
+
                         <!-- start page title -->
                         <div class="row">
                             <div class="col-12">
                                     <h4 class="page-title mt-4">Animais</h4>
                                 </div>
                             </div>
-                        </div>     
-                        <!-- end page title --> 
+                        </div>
+                        <!-- end page title -->
 
-                       
+
                         <!-- end row -->
                         <link href="{{url('assets/dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
                         <link href="{{url('assets/dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -31,7 +31,7 @@
                         <script src="{{url('assets/dashboard/libs/pdfmake/build/vfs_fonts.js')}}"></script>
                         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
                         crossorigin="anonymous"></script>
-                        
+
                         <div class="card-body">
                             <div class="form-group">
                                 <form role="form" action="{{ route('animais.store') }}" method="POST" enctype="multipart/form-data" id="formnovoAnimal" autocomplete="on" style="display: none;">
@@ -59,8 +59,8 @@
                                                         <option value="Bovino" >Bovino</option>
                                                         <option value="Ave" >Ave</option>
                                                         <option value="Reptil" >Réptil</option>
-                                                    </select> 
-                                                </div>                                               
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="col-md-12 d-flex my-3">
                                                 <div id="raca" class="col-md-4">
@@ -75,8 +75,8 @@
                                                     <label>Idade Aproximada</label>
                                                     <input required type="text" class="form-control" name="idade" placeholder="Ex: 5 anos" value="">
                                                 </div>
-                                                
-                                            </div>    
+
+                                            </div>
                                             <div class="col-md-12 d-flex my-3 align-items-center" >
                                                 <h5 class="ml-2 mt-2">Óbito?</h5><br>
                                                 <div class="form-check mr-3 ml-2 mt-1">
@@ -107,8 +107,8 @@
                                                     <textarea style="width:470px;" type="text" class="form-control" name="obito_causa" placeholder="Insira o motivo do óbito"></textarea>
                                                 </div>
                                             </div>
-                                      
-                                            
+
+
                                         <div class="d-flex justify-content-start">
                                             <button type="submit" class="btn btn-success my-1 mr-2" name="addAnimal" value="adicionarAnimal">Adicionar</button>
                                             <button type="button" class="btn btn-danger my-1" id="cancelNew" name="cancelNew" value="cancelNew">Cancelar</button>
@@ -116,15 +116,15 @@
                                         </div>
                                     </div>
                             </form>
-        
-                            </div>   
-                            
+
+                            </div>
+
                             <div class="">
                                 <button type="button" id="novoAnimal" class="btn btn-success my-1">Novo</button>
                             </div>
-                            
-                            
-                            
+
+
+
                                         <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                             <thead>
                                                 <tr>
@@ -143,15 +143,15 @@
                                             @foreach ($animais as $animal)
                                                 <tr>
                                                     <td>{{$animal->id}}</td>
-                                        
-                                                    <td>{{$animal->nome}}</td>
-                                            
+
+                                                    <td>{{$animal->animal_nome}}</td>
+
                                                     <td>{{$animal->chip}}</td>
-                                             
+
                                                     <td>{{$animal->tipo}}</td>
-                                               
+
                                                     <td>{{$animal->porte}}</td>
-                                              
+
                                                     <td>{{$animal->raca}}</td>
 
                                                     <td>{{preg_replace('/[^0-9]/','',$animal->idade)}}</td>
@@ -163,28 +163,28 @@
                                                     <td><span style='font-size:20px; color:red'>&#10006;</span></td>
                                                     @endif
                                                     <td class="d-flex justify-content-end">
-                                                   
+
                                                     <a href="{{ route('animais.edit', $animal->id) }}" class="btn btn-warning mx-1" ><i class="fas fa-pencil-alt"></i></a>
 
                                                         <form action="{{ route('animais.destroy', $animal->id)}}" method="POST"
                                                              onsubmit="return confirm('Deseja apagar esta animal?');">
-                                                            
+
                                                             @csrf
                                                             @method('DELETE')
 
                                                             <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                                                            
+
                                                     </form>
-                                              
+
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                                
+
                                             </tbody>
                                         </table>
-                                        
+
                                     </div> <!-- end card body-->
-                        
+
                     </div><!--  container -->
 
                 </div> <!-- content -->
@@ -227,19 +227,19 @@
                         e.preventDefault();
                         $("#formnovoAnimal").hide(200);
                         $("#novoAnimal").show(100);
-                        
-                });      
-                
+
+                });
+
                     $("#deleteAnimal").click(function(e){
                         e.preventDefault();
                         $("#formEditAnimal").hide();
                         $("#formnovoAnimal").hide();
-                        
-                });   
-                
+
+                });
+
             $(document).ready(function() {
-                
-                
+
+
                 $("#flexRadioDefault2").on( "change", function() {
 
                     if($('#flexRadioDefault2').is(':checked')){

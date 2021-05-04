@@ -4,24 +4,24 @@
            <!-- ============================================================== -->
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
-        
-        
+
+
             <div class="content-page">
                 <div class="content">
 
                     <!-- Start Content-->
                     <div class="container-fluid">
-                        
+
                         <!-- start page title -->
                         <div class="row">
                             <div class="col-12">
                                     <h4 class="page-title mt-4">Procedimentos</h4>
                                 </div>
                             </div>
-                        </div>     
-                        <!-- end page title --> 
+                        </div>
+                        <!-- end page title -->
 
-                       
+
                         <!-- end row -->
                         <link href="{{url('assets/dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
                         <link href="{{url('assets/dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -33,8 +33,16 @@
                         crossorigin="anonymous"></script>
                         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
                         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-                        
+
                         <div class="card-body">
+                        @if(session()->get('error'))
+                        <div class="alert alert-danger alert-dismissible show alert-estoque bg-danger" role="alert">
+                            <button type="button" class="close alert-close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong class="text-light">Alerta! {{session()->get('error')}}</strong>
+                            </div>
+                        @endif
                             <div class="form-group">
                                 <form role="form" action="{{ route('procedimentos.store') }}" method="POST" enctype="multipart/form-data" id="formnovoProcedimentos" autocomplete="on" style="display: none;">
                                 @csrf
@@ -50,19 +58,19 @@
                                                     <label>Valor</label>
                                                     <input type="number" required class="form-control" name="procedimento_valor" placeholder="Insira o valor do procedimento" min="0.00" max="100000.00" step="0.05" value="">
                                                 </div>
-                                                                                   
+
                                             </div>
                                             <div class="col-md-12 mt-3 mb-2">
                                                 <label for="procedimento_descricao" class="ml-2">Descrição do Procedimento</label>
                                                 <div class="col-md-4" id="procedimento_descricao">
-                                                    <textarea type="text" class="form-control" name="procedimento_descricao" placeholder="Insira uma breve descrição do procedimento"></textarea>
+                                                    <textarea type="text" class="form-control" name="procedimento_descricao" placeholder="Insira uma breve descrição do procedimento" required></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 d-flex mt-3 mb-2 " >
                                                     <div class="col-md-4 d-flex ">
                                                     <button id="plus" type="button" class="form-control mr-3">Adicionar Produto</button>
                                                     <button id="minus" type="button" class="form-control">Excluir Produto</button>
-                                                    </div>   
+                                                    </div>
                                             </div>
                                             <div class="row-md-12 d-flex" id="productsList-0">
                                                 <!-- <div id="produtos" class="col-md-4 mx-3 my-2">
@@ -72,18 +80,18 @@
                                                         <option>white</option>
                                                         <option>purple</option>
                                                         </select>
-                                                </div>   
+                                                </div>
                                                 <div id="quantidade" class="col-md-3 mx-3 my-2">
                                                         <label>Insira a Quantidade</label>
-                                                        <input required type="number" class="form-control" name="procedimento_quantidade" 
+                                                        <input required type="number" class="form-control" name="procedimento_quantidade"
                                                         step="1" min="0" max="10000" placeholder="Insira a quantidade do Procedimentos" value="">
                                                 </div>        -->
-                                                                                           
-                                            </div>    
-                                            
-                                           
-                                      
-                                            
+
+                                            </div>
+
+
+
+
                                         <div class="d-flex justify-content-start">
                                             <button type="submit" class="btn btn-success my-1 mr-2" name="addProcedimentos" value="adicionarProcedimentos">Adicionar</button>
                                             <button type="button" class="btn btn-danger my-1" id="cancelNew" name="cancelNew" value="cancelNew">Cancelar</button>
@@ -91,25 +99,25 @@
                                         </div>
                                     </div>
                             </form>
-        
-                            </div>   
-                            
+
+                            </div>
+
                             <div class="">
                                 <button type="button" id="novoProcedimentos" class="btn btn-success my-1">Novo</button>
                             </div>
-                            
-                            
-                            
+
+
+
                                         <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                             <thead>
                                                 <tr>
-                                                
+
                                                     <th>id</th>
                                                     <th>Nome</th>
                                                     <th>Valor</th>
                                                     <th>Descrição</th>
-                                                 
-                                                   
+
+
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -117,37 +125,37 @@
                                             @foreach ($procedimentos as $procedimentos)
                                                 <tr>
                                                     <td>{{$procedimentos->id}}</td>
-                                        
+
                                                     <td>{{$procedimentos->procedimento_nome}}</td>
-                                            
+
                                                     <td>R$ {{number_format($procedimentos->procedimento_valor,2)}}</td>
-                                             
+
                                                     <td>{{$procedimentos->procedimento_descricao}}</td>
-                                                    
-                                                                          
+
+
                                                     <td class="d-flex justify-content-end">
-                                                   
+
                                                     <a href="{{ route('procedimentos.edit', $procedimentos->id) }}" class="btn btn-warning mx-1" ><i class="fas fa-pencil-alt"></i></a>
 
                                                         <form action="{{ route('procedimentos.destroy', $procedimentos->id)}}" method="POST"
                                                              onsubmit="return confirm('Deseja apagar este procedimento?');">
-                                                            
+
                                                             @csrf
                                                             @method('DELETE')
 
                                                             <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                                                            
+
                                                     </form>
-                                              
+
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                                
+
                                             </tbody>
                                         </table>
-                                       
+
                                     </div> <!-- end card body-->
-                        
+
                     </div><!--  container -->
 
                 </div> <!-- content -->
@@ -180,26 +188,26 @@
                 let jsonProdutos= @json($produtos);
                 var arrayJson = JSON.parse(jsonProdutos);
                 console.log(arrayJson)
-                
+
                // let row = document.querySelectorAll('.productsList')
                 let row = document.getElementById('productsList-0')
                 let cont = parseInt(row.getAttribute('id').replace(/^\D+/g, ''))
-              
 
-                
+
+
                 plus.addEventListener('click', ()=>{
                     total += 1;
                     let select = document.createElement('select');
                     let input = document.createElement('input');
 
-                      
+
                     let clone = row.cloneNode(false);
                     clone.setAttribute('id', `productsList-${total}`)
                     clone.setAttribute('class', 'productsList col-md-8 d-flex')
                     //console.log(clone, cont)
-                    
 
-    
+
+
                     selecione = document.createElement('option')
                     selecione.innerHTML = 'Selecione...'
                     selecione.setAttribute('value', '')
@@ -214,7 +222,7 @@
                         option.innerHTML = `${produto.produto_nome}`
                         option.setAttribute('id',`option-${produto.id}`)
                         option.setAttribute('value',`${produto.id}`)
-                        select.append(option);    
+                        select.append(option);
                         select.classList.add('form-control', 'col-md-3','my-1', 'mx-2' )
 
                     })
@@ -226,15 +234,15 @@
                     input.setAttribute('step', '1')
                     input.setAttribute('min', '0')
                     input.setAttribute('max', '1000')
-                    
+
                     input.setAttribute('placeholder','Insira a quantidade do produto selecionado')
                     input.classList.add('form-control', 'col-md-4', 'mx-2', 'my-1')
 
                     clone.appendChild(select)
                     clone.appendChild(input)
-                    
+
                     row.after(clone);
-                  
+
                 })
                 minus.addEventListener('click', ()=>{
                     let divs = document.querySelectorAll('.productsList')
@@ -250,7 +258,7 @@
             <script>
                 // $('#obito_data').hide();
                 // $('#obito_causa').hide();
-                
+
                 $(".js-example-tags").select2({
                     tags: true
                 });
@@ -268,19 +276,19 @@
                         e.preventDefault();
                         $("#formnovoProcedimentos").hide(200);
                         $("#novoProcedimentos").show(100);
-                        
-                });      
-                
+
+                });
+
                     $("#deleteProcedimentos").click(function(e){
                         e.preventDefault();
                         $("#formEditProcedimentos").hide();
                         $("#formnovoProcedimentos").hide();
-                        
-                });   
-                
+
+                });
+
             // $(document).ready(function() {
-                
-                
+
+
             //     $("#flexRadioDefault2").on( "change", function() {
 
             //         if($('#flexRadioDefault2').is(':checked')){

@@ -18,7 +18,7 @@ class AnimalController extends Controller
      {
          $this->middleware('auth');
      }
- 
+
      /**
       * Display a listing of the resource.
       *
@@ -31,10 +31,10 @@ class AnimalController extends Controller
             // $tipos = ['Felino', 'Canino','Equino','Caprino','Bovino','Ave','Reptil'];
             //dd($animal);
             return view('dashboard/dash-animal', compact('animais'));
-             
+
          }
      }
- 
+
      /**
       * Show the form for creating a new resource.
       *
@@ -44,7 +44,7 @@ class AnimalController extends Controller
      {
          //
      }
- 
+
      /**
       * Store a newly created resource in storage.
       *
@@ -55,7 +55,7 @@ class AnimalController extends Controller
      {
          $animais = new Animal();
          //dd($request->all());
- 
+
          $animais->nome = $request->input('nome');
          $animais->chip = $request->input('chip');
          $animais->tipo = $request->input('tipo');
@@ -64,12 +64,12 @@ class AnimalController extends Controller
          $animais->idade = $request->input('idade');
          $animais->obito_data = $request->input('obito_data');
          $animais->obito_causa = $request->input('obito_causa');
-         
+
          $animais->save();
-         
+
          return redirect(route('animais.index'));
      }
- 
+
      /**
       * Display the specified resource.
       *
@@ -80,7 +80,7 @@ class AnimalController extends Controller
      {
          //
      }
- 
+
      /**
       * Show the form for editing the specified resource.
       *
@@ -93,7 +93,7 @@ class AnimalController extends Controller
          $animalId = Animal::find($id);
          return view('dashboard/dash-animalEdit', compact('animalId'));
      }
- 
+
      /**
       * Update the specified resource in storage.
       *
@@ -105,8 +105,8 @@ class AnimalController extends Controller
      public function update(Request $request, Clientes $clientes, $id)
      {
          $animais = Animal::find($id);
-         
-         $animais->nome = $request->input('nome');
+
+         $animais->animal_nome = $request->input('nome');
          $animais->chip = $request->input('chip');
          $animais->tipo = $request->input('tipo');
          $animais->porte = $request->input('porte');
@@ -114,11 +114,11 @@ class AnimalController extends Controller
          $animais->idade = $request->input('idade');
          $animais->obito_data = $request->input('obito_data');
          $animais->obito_causa = $request->input('obito_causa');
- 
+
          $animais->save();
          return redirect('animais');
      }
- 
+
      /**
       * Remove the specified resource from storage.
       *
