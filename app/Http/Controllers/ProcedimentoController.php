@@ -69,6 +69,13 @@ class ProcedimentoController extends Controller
         if(!$select || !$qtd){
             return redirect(route('procedimentos.index'))->with('error','Nenhum Produto Informado!!!');
         }
+        function array_has_dupes($array) {
+            // streamline per @Felix
+            return count($array) !== count(array_unique($array));
+         }
+        if(array_has_dupes($select)){
+            return redirect(route('procedimentos.index'))->with('error','Não foi possivel salvar, um ou mais produtos duplicados!!!');
+        }
         //dd(count($array));
         $procedimentos->procedimento_nome = $request->input('procedimento_nome');
         $procedimentos->procedimento_valor = $request->input('procedimento_valor');
@@ -141,6 +148,16 @@ class ProcedimentoController extends Controller
         $select = $request->input('select');
         $qtd = $request->input('qtd');
 
+        if(!$select || !$qtd){
+            return redirect(route('procedimentos.edit', $id))->with('error','Nenhum Produto Informado!!!');
+        }
+        function array_has_dupe($array) {
+            // streamline per @Felix
+            return count($array) !== count(array_unique($array));
+         }
+        if(array_has_dupe($select)){
+            return redirect(route('procedimentos.edit', $id))->with('error','Não foi possivel salvar, um ou mais produtos duplicados!!!');
+        }
         $procedimentos->procedimento_nome = $request->input('procedimento_nome');
         $procedimentos->procedimento_valor = $request->input('procedimento_valor');
         $procedimentos->procedimento_descricao = $request->input('procedimento_descricao');

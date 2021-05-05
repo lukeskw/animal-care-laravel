@@ -5,6 +5,7 @@
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
 
+
             <div class="content-page">
                 <div class="content">
 
@@ -30,61 +31,39 @@
                         <script src="{{url('assets/dashboard/libs/pdfmake/build/vfs_fonts.js')}}"></script>
                         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
                         crossorigin="anonymous"></script>
+                        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+                        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
                         <div class="card-body">
                         @if(session()->get('error'))
-                        <div class="alert alert-danger alert-dismissible show alert-estoque bg-danger" role="alert" id="alert-estoque">
+                        <div class="alert alert-danger alert-dismissible show alert-estoque bg-danger" role="alert">
                             <button type="button" class="close alert-close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <strong class="text-light">Alerta! {{session()->get('error')}}</strong>
                             </div>
                         @endif
-                        <div class="form-group">
-
-                            <form role="form" action="{{ route('procedimentos.update', $procedimentoId->id) }}" method="POST" enctype="multipart/form-data" id="formEditProduto" autocomplete="on" >
-                                @method('PUT')
+                            <div class="form-group">
+                                <form role="form" action="{{ route('procedimentos.store') }}" method="POST" enctype="multipart/form-data" id="formnovoProcedimentos" autocomplete="on" style="display: none;">
                                 @csrf
                                 <div class="column">
                                     <div class="col-md-12 col-12 justify-content-center">
-                                        <h4>Editar Procedimento</h4>
-                                            <!-- <div class="col-md-12 d-flex my-3">
-                                                <div id="nome" class="col-md-4">
-                                                    <label>Nome do Produto</label>
-                                                    <input type="text" required class="form-control" name="produto_nome" placeholder="Insira o nome do Produto" value="{{isset($procedimentoId->produto_nome) ? $procedimentoId->produto_nome : '' }}">
-                                                </div>
-                                                <div id="chip" class="col-md-3">
-                                                    <label>Valor</label>
-                                                    <input type="number" required class="form-control" name="produto_valor" placeholder="Insira o valor do produto" min="0.00" max="100000.00" step="0.05" value="{{isset($procedimentoId->produto_valor) ? $procedimentoId->produto_valor : '' }}">
-                                                </div>
-                                                <div id="quantidade" class="col-md-4">
-                                                    <label>Insira a Quantidade</label>
-                                                    <input required type="number" class="form-control" name="produto_quantidade"
-                                                    step="1" min="0" max="10000" placeholder="Insira a quantidade do Produto" value="{{isset($procedimentoId->produto_quantidade) ? $procedimentoId->produto_quantidade : '' }}">
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-12 d-flex my-3">
-                                            <div id="tipo" class="col-md-4">
-                                                    <label>Descrição do Produto</label>
-                                                    <textarea type="text" style="height:100px;" class="form-control" name="produto_descricao" placeholder="Insira a descrição do produto">{{isset($procedimentoId->produto_descricao) ? $procedimentoId->produto_descricao : '' }}</textarea>
-                                                </div>
-                                            </div>     -->
+                                        <h4>Novo Procedimento </h4>
                                             <div class="col-md-12 d-flex my-3">
                                                 <div id="nome" class="col-md-4">
                                                     <label>Nome do Procedimentos</label>
-                                                    <input type="text" required class="form-control" name="procedimento_nome" placeholder="Insira o nome do procedimento" value="{{isset($procedimentoId->procedimento_nome) ? $procedimentoId->procedimento_nome : '' }}">
+                                                    <input type="text" required class="form-control" name="procedimento_nome" placeholder="Insira o nome do procedimento" value="">
                                                 </div>
                                                 <div id="chip" class="col-md-3">
                                                     <label>Valor</label>
-                                                    <input type="number" required class="form-control" name="procedimento_valor" placeholder="Insira o valor do procedimento" min="0.00" max="100000.00" step="0.05" value="{{isset($procedimentoId->procedimento_valor) ? number_format($procedimentoId->procedimento_valor,2) : '' }}">
+                                                    <input type="number" required class="form-control" name="procedimento_valor" placeholder="Insira o valor do procedimento" min="0.00" max="100000.00" step="0.05" value="">
                                                 </div>
 
                                             </div>
                                             <div class="col-md-12 mt-3 mb-2">
                                                 <label for="procedimento_descricao" class="ml-2">Descrição do Procedimento</label>
                                                 <div class="col-md-4" id="procedimento_descricao">
-                                                    <textarea type="text" class="form-control" name="procedimento_descricao" placeholder="Insira uma breve descrição do procedimento">{{isset($procedimentoId->procedimento_descricao) ? $procedimentoId->procedimento_descricao : '' }}</textarea>
+                                                    <textarea type="text" class="form-control" name="procedimento_descricao" placeholder="Insira uma breve descrição do procedimento" required></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 d-flex mt-3 mb-2 " >
@@ -93,33 +72,38 @@
                                                     <button id="minus" type="button" class="form-control">Excluir Produto</button>
                                                     </div>
                                             </div>
-                                            <div class="col-md-12 d-flex productsList" id="productsList-0">
-
+                                            <div class="row-md-12 d-flex" id="productsList-0">
+                                                <!-- <div id="produtos" class="col-md-4 mx-3 my-2">
+                                                        <label>Insira o Produto</label>
+                                                        <select class="form-control js-example-tags" multiple="multiple" placeholder="Insira os produtos utilizados">
+                                                        <option selected="selected">orange</option>
+                                                        <option>white</option>
+                                                        <option>purple</option>
+                                                        </select>
+                                                </div>
+                                                <div id="quantidade" class="col-md-3 mx-3 my-2">
+                                                        <label>Insira a Quantidade</label>
+                                                        <input required type="number" class="form-control" name="procedimento_quantidade"
+                                                        step="1" min="0" max="10000" placeholder="Insira a quantidade do Procedimentos" value="">
+                                                </div>        -->
 
                                             </div>
-                                            @foreach($prod_proced as $key=>$p)
-                                            <div class="row-md-12 d-flex productsList" id="productsList-{{$key+1}}">
-                                                <select required="true" name="select[]" class="form-control col-md-3 my-1 mx-2">
-                                                    <option value="">Selecione...</option>
-                                                    @if($p->produto_id)
-                                                        <option id="option-{{$p->produto_id}}" selected value="{{$p->produto_id}}">{{$p->produto_nome}}</option>
-                                                    @endif
-                                                    @foreach($produtos as $k_prod=> $produto)
-                                                        <option id="option-{{$k_prod}}" value="{{$produto->id}}">{{$produto->produto_nome}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input id="input-{{$key}}" name="qtd[]" required="true" type="number" step="1" min="0" max="1000" placeholder="Insira a quantidade do produto selecionado" class="form-control col-md-4 mx-2 my-1" value="{{isset($p->quantidade) ? $p->quantidade : '' }}">
-                                            </div>
-                                            @endforeach
+
+
+
+
                                         <div class="d-flex justify-content-start">
-                                            <button type="submit" class="btn btn-success my-1 mr-2" name="addProduto" value="adicionarProduto">Adicionar</button>
-                                            <a class="btn btn-danger my-1" id="cancelEdit" name="cancelEdit" value="cancelEdit" style="color:white;" href="{{ route('procedimentos.index')}}">Cancelar</a>
+                                            <button type="submit" class="btn btn-success my-1 mr-2" name="addProcedimentos" value="adicionarProcedimentos">Adicionar</button>
+                                            <button type="button" class="btn btn-danger my-1" id="cancelNew" name="cancelNew" value="cancelNew">Cancelar</button>
 
                                         </div>
                                     </div>
                             </form>
 
+                            </div>
 
+                            <div class="">
+                                <button type="button" id="novoProcedimentos" class="btn btn-success my-1">Novo</button>
                             </div>
 
 
@@ -127,32 +111,34 @@
                                         <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                             <thead>
                                                 <tr>
+
                                                     <th>id</th>
                                                     <th>Nome</th>
                                                     <th>Valor</th>
                                                     <th>Descrição</th>
+
+
                                                     <th></th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
-
+                                            @foreach ($procedimentos as $procedimentos)
                                                 <tr>
-                                                    <td>{{$procedimentoId->id}}</td>
+                                                    <td>{{$procedimentos->id}}</td>
 
-                                                    <td>{{$procedimentoId->procedimento_nome}}</td>
+                                                    <td>{{$procedimentos->procedimento_nome}}</td>
 
-                                                    <td>R$ {{number_format($procedimentoId->procedimento_valor,2)}}</td>
+                                                    <td>R$ {{number_format($procedimentos->procedimento_valor,2)}}</td>
 
-                                                    <td>{{$procedimentoId->procedimento_descricao}}</td>
+                                                    <td>{{$procedimentos->procedimento_descricao}}</td>
 
 
                                                     <td class="d-flex justify-content-end">
 
-                                                    <a href="{{ route('procedimentos.edit', $procedimentoId->id) }}" class="btn btn-warning mx-1" ><i class="fas fa-pencil-alt"></i></a>
+                                                    <a href="{{ route('procedimentos.edit', $procedimentos->id) }}" class="btn btn-warning mx-1" ><i class="fas fa-pencil-alt"></i></a>
 
-                                                        <form action="{{ route('procedimentos.destroy', $procedimentoId->id)}}" method="POST"
-                                                             onsubmit="return confirm('Deseja apagar esta Procedimento?');">
+                                                        <form action="{{ route('procedimentos.destroy', $procedimentos->id)}}" method="POST"
+                                                             onsubmit="return confirm('Deseja apagar este procedimento?');">
 
                                                             @csrf
                                                             @method('DELETE')
@@ -163,6 +149,7 @@
 
                                                     </td>
                                                 </tr>
+                                            @endforeach
 
                                             </tbody>
                                         </table>
@@ -192,32 +179,20 @@
             <!-- ============================================================== -->
             <!-- End Page content -->
             <!-- ============================================================== -->
-            <!-- <script>
-                $(document).ready(function() {
-                $('#sort').DataTable( {
-                    columnDefs: [
-                    //"order": false,
-                    { orderable: false, targets: 0 }
-                    ].
-                } );
-            } );
-            </script> -->
 
             <script>
-               // let total = 0;
+                let total = 0;
                 let plus = document.getElementById("plus");
                 let minus = document.getElementById("minus");
 
-                let jsonProdutos= @json($produtosJson);
+                let jsonProdutos= @json($produtos);
                 var arrayJson = JSON.parse(jsonProdutos);
                 console.log(arrayJson)
 
-                let rowF = document.getElementById('productsList-0')
-                let row = document.getElementsByClassName('productsList')
-                console.log(row.length)
-                let cont = parseInt(row[(row.length)-1].getAttribute('id').replace(/^\D+/g, ''))
-                let total = cont
-                console.log(total, cont)
+               // let row = document.querySelectorAll('.productsList')
+                let row = document.getElementById('productsList-0')
+                let cont = parseInt(row.getAttribute('id').replace(/^\D+/g, ''))
+
 
 
                 plus.addEventListener('click', ()=>{
@@ -226,10 +201,10 @@
                     let input = document.createElement('input');
 
 
-                    let clone = rowF.cloneNode(false);
+                    let clone = row.cloneNode(false);
                     clone.setAttribute('id', `productsList-${total}`)
-                    clone.setAttribute('class', 'productsList row-md-12 d-flex')
-                    console.log(clone, cont)
+                    clone.setAttribute('class', 'productsList col-md-8 d-flex')
+                    //console.log(clone, cont)
 
 
 
@@ -266,50 +241,82 @@
                     clone.appendChild(select)
                     clone.appendChild(input)
 
-                    rowF.after(clone);
+                    row.after(clone);
 
                 })
                 minus.addEventListener('click', ()=>{
                     let divs = document.querySelectorAll('.productsList')
-                    let lastDiv = divs.item(1)
+                    let lastDiv = divs.item(0)
 
-                    console.log(lastDiv)
                     lastDiv.remove();
+                    //console.log(lastDiv)
                 })
 
             </script>
 
+
             <script>
-                x =$('#alert-estoque');
-                $(document).ready(function() {
-                    console.log(x)
-                    setTimeout(()=>{ $('.alert-estoque').fadeOut('slow')}, 3000)
+                // $('#obito_data').hide();
+                // $('#obito_causa').hide();
+
+                $(".js-example-tags").select2({
+                    tags: true
                 });
 
-                $("#novoProduto").click(function(e){
+                $("#novoProcedimentos").click(function(e){
                     e.preventDefault();
-                    if($('#formEditProduto').is(':visible')){
-                        $('#formEditProduto').hide(100);
+                    if($('#formEditProcedimentos').is(':visible')){
+                        $('#formEditProcedimentos').hide(100);
                     }
-                    $("#formnovoProduto").show(200);
-                    $("#novoProduto").hide(100);
+                    $("#formnovoProcedimentos").show(200);
+                    $("#novoProcedimentos").hide(100);
                 });
 
                 $("#cancelNew").click(function(e){
                         e.preventDefault();
-                        $("#formnovoProduto").hide(200);
-                        $("#novoProduto").show(100);
+                        $("#formnovoProcedimentos").hide(200);
+                        $("#novoProcedimentos").show(100);
 
                 });
 
-                    $("#deleteProduto").click(function(e){
+                    $("#deleteProcedimentos").click(function(e){
                         e.preventDefault();
-                        $("#formEditProduto").hide();
-                        $("#formnovoProduto").hide();
+                        $("#formEditProcedimentos").hide();
+                        $("#formnovoProcedimentos").hide();
 
                 });
 
+            // $(document).ready(function() {
 
+
+            //     $("#flexRadioDefault2").on( "change", function() {
+
+            //         if($('#flexRadioDefault2').is(':checked')){
+            //             console.log('aki')
+            //             $('#obito_data').show(100);
+            //             $('#obito_data input').attr("required",true);
+            //             var now = new Date();
+            //             var today = new Date().toISOString().substr(0, 10);
+            //             $('#obito_data input').val(today);
+            //             $('#obito_causa').show(100);
+            //             $('#obito_causa textarea').attr("required",true);
+            //         }
+            //     });
+            //     $("#flexRadioDefault1").on( "change", function() {
+
+            //         if($('#flexRadioDefault1').is(':checked')){
+            //             console.log('aki')
+            //             $('#obito_data').hide(100);
+            //             $('#obito_data input').removeAttr("required").val('');
+            //             $('#obito_causa').hide(100);
+            //             $('#obito_causa textarea').removeAttr("required").val('');
+            //         }
+            //     });
+            // })
             </script>
 
+            <script src="{{url('assets/dashboard/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+
+            <!-- Sweet alert init js-->
+            <script src="{{url('assets/dashboard/js/pages/sweet-alerts.init.js')}}"></script>
 @endsection

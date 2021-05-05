@@ -14,7 +14,7 @@
         <!-- Plugins css -->
         <link href="{{url('assets/dashboard/libs/flatpickr/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{url('assets/dashboard/libs/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css" />
-        
+
         <!-- App css -->
         <link href="{{url('assets/dashboard/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
         <link href="{{url('assets/dashboard/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
@@ -33,7 +33,7 @@
         <div id="wrapper">
 <!-- <a class="dropdown-item" href="{{ route('logout') }}">
                                        <!-- onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"> 
+                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a> -->
             <!-- Topbar Start -->
@@ -42,14 +42,14 @@
                     <ul class="list-unstyled topnav-menu float-right mb-0">
 
 
-            
+
                        <!-- <li class="dropdown notification-list topbar-dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="fe-bell noti-icon"></i>
                                 <span class="badge badge-danger rounded-circle noti-icon-badge">2</span>
                             </a>
                              <div class="dropdown-menu dropdown-menu-right dropdown-lg">
-    
+
                                 <!-- item
                                 <div class="dropdown-item noti-title">
                                     <h5 class="m-0">
@@ -60,9 +60,9 @@
                                         </span>Notificações
                                     </h5>
                                 </div>
-    
+
                                 <div class="noti-scroll" data-simplebar>
-    
+
                                     <!-- item
                                     <a href="javascript:void(0);" class="dropdown-item notify-item active">
                                         <div class="notify-icon">
@@ -81,23 +81,23 @@
                                             <small class="text-muted">5 hours ago</small>
                                         </p>
                                     </a>
-    
+
                                 </div>
-    
+
                                 <!-- All
                                 <!-- <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
                                     Ver Todos
                                     <i class="fe-arrow-right"></i>
                                 </a>
-     
-                            </div> 
+
+                            </div>
                         </li>-->
-    
+
                         <li class="dropdown notification-list topbar-dropdown">
                             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <!-- <img src="{{url('assets/dashboard/images/users/user-1.jpg')}}" alt="user-image" class="rounded-circle"> -->
                                 <span class="pro-user-name ml-1">
-                                    {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i> 
+                                    {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i>
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -105,36 +105,37 @@
                                 <div class="dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Bem Vindo !</h6>
                                 </div>
-    
+
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                @if(Auth::user()->id == 1 || Auth::user()->id == 2)
+                                <a href="{{route('register')}}" class="dropdown-item notify-item">
                                     <i class="fe-user"></i>
-                                    <span>Minha Conta</span>
+                                    <span>Registrar Usuário</span>
                                 </a>
-
+                                @endif
                                 <div class="dropdown-divider"></div>
-    
 
-                                <a class="dropdown-item notify-item" href="{{ route('logout') }}" 
+
+                                <a class="dropdown-item notify-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
                                        <i class="fe-log-out"></i>
                                         {{ __('Sair') }}
-                                    </a> 
+                                    </a>
                                     <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-    
+
                             </div>
                         </li>
-    
+
                         <!-- <li class="dropdown notification-list">
                             <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                                 <i class="fe-settings noti-icon"></i>
                             </a>
                         </li> -->
-    
+
                     </ul>
-    
+
                     <!-- LOGO -->
                     <div class="logo-box">
                         <a href="{{route('dashboard')}}" class="logo logo-dark text-center">
@@ -147,7 +148,7 @@
                                 <!-- <span class="logo-lg-text-light">U</span> -->
                             </span>
                         </a>
-    
+
                         <a href="{{route('dashboard')}}" class="logo logo-light text-center">
                             <span class="logo-sm">
                                 <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="22">
@@ -157,7 +158,7 @@
                             </span>
                         </a>
                     </div>
-    
+
                     <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
                         <li>
                             <button class="button-menu-mobile waves-effect waves-light">
@@ -175,9 +176,9 @@
                                 </div>
                             </a>
                             <!-- End mobile menu toggle-->
-                        </li>   
-            
-    
+                        </li>
+
+
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -190,16 +191,16 @@
                 <div class="h-100" data-simplebar>
 
                     <!-- User box -->
-                    
+
 
                     <!--- Sidemenu -->
                     <div id="sidebar-menu">
 
                         <ul id="side-menu">
 
-                          
+
                             <li class="menu-title mt-2">Módulos</li>
-                           
+
                             <li class="menu-title mt-2">Administrador</li>
                             <li class="menuitem-active">
                                 <a href="{{route('dashboard')}}">
@@ -216,7 +217,7 @@
                                 </a>
                             </li>
 
-                          
+
 
                             <li>
                                 <a href="{{route('animais.index')}}">
@@ -225,7 +226,7 @@
                                     <span> Cadastro de Animais </span>
                                 </a>
                             </li>
-                            
+
                             <li>
                                 <a href="{{route('produtos.index')}}">
                                     <!-- <i class="icon-people"></i> -->
@@ -236,7 +237,7 @@
 
                             <!-- <li>
                                 <a href="{{route('procedimentos.index')}}">
-                                    
+
                                     <i class="mdi mdi-stethoscope"></i>
                                     <span> Procedimentos </span>
                                 </a>
@@ -257,7 +258,7 @@
                                             <a href="{{route('gera-procedimento.index')}}">Gerar Procedimento
                                             </a>
                                         </li>
-                                    </ul>    
+                                    </ul>
                                 </div>
                             </li>
 
@@ -276,14 +277,14 @@
                                 <div class="collapse" id="sidebarReports">
                                     <ul class="nav-second-level">
                                         <li>
-                                            <a href="{{route('dashboard')}}">Todos procedimentos por mês/cliente
+                                            <a href="{{route('generate-pdf',['type'=>2])}}">Todos procedimentos por mês/cliente
                                             </a>
                                         </li>
                                         <li>
                                             <a target="_blank" href="{{route('generate-pdf',['type'=>1])}}">Relatório de Produtos
                                             </a>
                                         </li>
-                                    </ul>    
+                                    </ul>
                                 </div>
                             </li>
                             <!-- <li>
@@ -306,7 +307,7 @@
             <!-- Left Sidebar End -->
 
             <!-- ========== Content  Start ========== -->
-           
+
                     @yield('dash-body')
 
         </div>
@@ -315,7 +316,7 @@
         <!-- Right Sidebar -->
         <div class="right-bar">
             <div data-simplebar class="h-100">
-    
+
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs nav-bordered nav-justified" role="tablist">
 
@@ -327,7 +328,7 @@
                 </ul>
 
                 <!-- Tab panes -->
-               
+
 
             </div> <!-- end slimscroll-menu-->
         </div>
@@ -369,7 +370,7 @@
         <script src="{{url('assets/dashboard/js/pages/datatables.init.js')}}"></script>
         <script>
             $('#sidebarReports').removeClass( "show" )
-            
+
             //$('#sidebarProcedures').removeClass( "show" )
         </script>
 

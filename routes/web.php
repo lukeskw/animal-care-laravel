@@ -21,7 +21,7 @@ use App\Http\Controllers\ProdutoController;
 */
 
 Route::get('/home', function () {
-    return redirect('https://www.taticaweb.com.br/site/cirac/index.html');
+    return redirect('https://www.taticaweb.com.br/site/cirac/index.php');
 })->name('home');
 
 Route::fallback(function () {

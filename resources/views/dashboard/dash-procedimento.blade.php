@@ -36,7 +36,7 @@
 
                         <div class="card-body">
                         @if(session()->get('error'))
-                        <div class="alert alert-danger alert-dismissible show alert-estoque bg-danger" role="alert">
+                        <div class="alert alert-danger alert-dismissible show alert-estoque bg-danger" role="alert" id="alert-estoque">
                             <button type="button" class="close alert-close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -192,7 +192,7 @@
                // let row = document.querySelectorAll('.productsList')
                 let row = document.getElementById('productsList-0')
                 let cont = parseInt(row.getAttribute('id').replace(/^\D+/g, ''))
-
+                let arrDisabled = []
 
 
                 plus.addEventListener('click', ()=>{
@@ -215,17 +215,24 @@
                     select.setAttribute('required', true)
                     //select.setAttribute('name', `select-${total}`)
                     select.setAttribute('name', 'select[]')
+                    select.setAttribute('data-select', `select-${total}`)
                     select.append(selecione)
+                    let optArray = []
                     arrayJson.map((produto)=>{
 
                         let option = document.createElement('option')
                         option.innerHTML = `${produto.produto_nome}`
                         option.setAttribute('id',`option-${produto.id}`)
+                        option.setAttribute('data-opt',`select-${total}`)
                         option.setAttribute('value',`${produto.id}`)
+                        option.setAttribute('class','product-option')
                         select.append(option);
+
+                        optArray.push(option)
                         select.classList.add('form-control', 'col-md-3','my-1', 'mx-2' )
 
                     })
+                    //console.log(optArray)
                     input.setAttribute('id',`input-${total}`)
                     //input.setAttribute('name',`qtd[-${total}]`)
                     input.setAttribute('name','qtd[]')
@@ -243,7 +250,13 @@
 
                     row.after(clone);
 
+
+
                 })
+
+
+
+
                 minus.addEventListener('click', ()=>{
                     let divs = document.querySelectorAll('.productsList')
                     let lastDiv = divs.item(0)
@@ -256,8 +269,11 @@
 
 
             <script>
-                // $('#obito_data').hide();
-                // $('#obito_causa').hide();
+                x =$('#alert-estoque');
+                $(document).ready(function() {
+                    console.log(x)
+                    setTimeout(()=>{ $('.alert-estoque').fadeOut('slow')}, 3000)
+                });
 
                 $(".js-example-tags").select2({
                     tags: true
@@ -286,33 +302,7 @@
 
                 });
 
-            // $(document).ready(function() {
 
-
-            //     $("#flexRadioDefault2").on( "change", function() {
-
-            //         if($('#flexRadioDefault2').is(':checked')){
-            //             console.log('aki')
-            //             $('#obito_data').show(100);
-            //             $('#obito_data input').attr("required",true);
-            //             var now = new Date();
-            //             var today = new Date().toISOString().substr(0, 10);
-            //             $('#obito_data input').val(today);
-            //             $('#obito_causa').show(100);
-            //             $('#obito_causa textarea').attr("required",true);
-            //         }
-            //     });
-            //     $("#flexRadioDefault1").on( "change", function() {
-
-            //         if($('#flexRadioDefault1').is(':checked')){
-            //             console.log('aki')
-            //             $('#obito_data').hide(100);
-            //             $('#obito_data input').removeAttr("required").val('');
-            //             $('#obito_causa').hide(100);
-            //             $('#obito_causa textarea').removeAttr("required").val('');
-            //         }
-            //     });
-            // })
             </script>
 
             <script src="{{url('assets/dashboard/libs/sweetalert2/sweetalert2.min.js')}}"></script>

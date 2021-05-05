@@ -151,8 +151,8 @@
 
                                         <td class="d-flex justify-content-end">
 
-                                            <a href="{{ route('gera-procedimento.show', $procedimentos->id) }}"
-                                                class="btn btn-info mx-1" ><i class="fas fa-eye"></i>
+                                            <a href="{{ route('gera-procedimento.show', $procedimentos->id) }}" class="btn btn-info mx-1" >
+                                                <i class="fas fa-eye"></i>
                                             </a>
 
                                             <form action="{{ route('gera-procedimento.destroy', $procedimentos->id)}}"
