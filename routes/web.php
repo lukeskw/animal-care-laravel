@@ -9,48 +9,36 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProcedimentoController;
 use App\Http\Controllers\ProdutoController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/home', function () {
-    return redirect('https://www.taticaweb.com.br/site/cirac/index.php');
+    //return redirect('https://www.taticaweb.com.br/site/cirac/index.php');
+    return view('home');
 })->name('home');
 
 Route::fallback(function () {
     return view('errors/404');
 });
 
-Route::get('/generate-pdf/{type}', [PdfController::class, 'generate'])->middleware('auth')->name('generate-pdf');
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
-
-// Route::get('/dashboard', function () {
-//     return view('layouts/dashboard');
-// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-// Route::get('/dashboard', 'HomeController@index')->name('dashboard')->middleware(['auth']);
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware(['auth']);
 
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-Route::resource('/clientes', ClienteController::class)->name('clientes','*')->middleware(['auth']);
+    Route::resource('/clientes', ClienteController::class)->name('clientes','*');
 
-Route::resource('/animais', AnimalController::class)->name('animais','*')->middleware(['auth']);
+    Route::resource('/animais', AnimalController::class)->name('animais','*');
 
-Route::resource('/produtos', ProdutoController::class)->name('produtos','*')->middleware(['auth']);
+    Route::resource('/produtos', ProdutoController::class)->name('produtos','*');
 
-Route::resource('/procedimentos', ProcedimentoController::class)->name('procedimentos','*')->middleware(['auth']);
+    Route::resource('/procedimentos', ProcedimentoController::class)->name('procedimentos','*');
 
-Route::resource('/gera-procedimento', GeraProcedimentoController::class)->name('gera-procedimento','*')->middleware(['auth']);
+    Route::resource('/gera-procedimento', GeraProcedimentoController::class)->name('gera-procedimento','*');
+
+    Route::get('/generate-pdf/{type}', [PdfController::class, 'generate'])->name('generate-pdf');
+});
+
 

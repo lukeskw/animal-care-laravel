@@ -42,7 +42,7 @@ class GeraProcedimentoController extends Controller
             ->join('clientes', 'clientes.id', '=', 'gp.cliente_id')
             ->join('animals', 'animals.id', '=', 'gp.animal_id')
             ->select('gp.id', 'clientes.nome', 'clientes.nome_fantasia', 'animals.animal_nome', 'animals.chip', 'procedimentos.procedimento_nome', 'gp.pcd_valor', 'gp.pcd_descricao')
-            ->get();//GeraProcedimento::all();
+            ->get();
             $clientes = Clientes::all();
             $produtos = Produto::all();
             $animais = Animal::all();
@@ -51,8 +51,6 @@ class GeraProcedimentoController extends Controller
             ->join('procedimentos', 'procedimentos.id', '=', 'pp.procedimento_id')
             ->select('*')
             ->get();
-           // dd($gera_procedimentos);
-           // $gera_procedimentos = json_encode($gera_procedimentos, true);
             $produtos = json_encode($produtos, true);
             return view('dashboard/dash-geraprocedimento', compact('procedimentos', 'animais', 'clientes', 'produtos','produto_proced','gera_procedimentos'));
 
@@ -86,13 +84,11 @@ class GeraProcedimentoController extends Controller
             ->select('*')
             ->get();
         foreach($produto_proced as $p){
-        // dd($p);
             if($p->produto_quantidade < $p->quantidade){
                 return redirect(route('gera-procedimento.index'))->with('error','Sem o produto '. $p->produto_nome.' suficiente no estoque!');
             }
             else{
                 $calculo = $p->produto_quantidade - $p->quantidade;
-                //dd($calculo);
                 $produto_att = DB::table('produtos')->where('id', $p->produto_id)->update(['produto_quantidade' => $calculo]);
             }
         }
@@ -115,7 +111,12 @@ class GeraProcedimentoController extends Controller
      */
     public function show($id)
     {
-        //
+        $procedimentoId = GeraProcedimento::find($id);
+        if(!$procedimentoId){
+            return redirect(route('gera-procedimento.index'))->with('error','Procedimento não encontrado');
+        }
+
+        return view('dashboard/dash-geraprocedimentoEdit', compact('procedimentoId'));
     }
 
     /**
@@ -126,7 +127,9 @@ class GeraProcedimentoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $procedimentoId = Procedimento::find($id);
+        dd($procedimentoId);
+        return view('dashboard/dash-geraprocedimentoEdit', compact('procedimentoId'));
     }
 
     /**
@@ -150,9 +153,7 @@ class GeraProcedimentoController extends Controller
     public function destroy($id)
     {
        $procedimentos = GeraProcedimento::find($id);
-    //    $procedimentos = DB::table('gera_procedimentos')->select('*')->where('id', $id)
-    //    ->get();
-//dd($procedimentos);
+
         $procedimentos->delete();
         return redirect(route('gera-procedimento.index'));
     }

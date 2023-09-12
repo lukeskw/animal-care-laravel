@@ -31,71 +31,12 @@
 
         <!-- Begin page -->
         <div id="wrapper">
-<!-- <a class="dropdown-item" href="{{ route('logout') }}">
-                                       <!-- onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a> -->
             <!-- Topbar Start -->
             <div class="navbar-custom">
                 <div class="container-fluid">
                     <ul class="list-unstyled topnav-menu float-right mb-0">
-
-
-
-                       <!-- <li class="dropdown notification-list topbar-dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <i class="fe-bell noti-icon"></i>
-                                <span class="badge badge-danger rounded-circle noti-icon-badge">2</span>
-                            </a>
-                             <div class="dropdown-menu dropdown-menu-right dropdown-lg">
-
-                                <!-- item
-                                <div class="dropdown-item noti-title">
-                                    <h5 class="m-0">
-                                        <span class="float-right">
-                                            <a href="" class="text-dark">
-                                                <small>Limpar</small>
-                                            </a>
-                                        </span>Notificações
-                                    </h5>
-                                </div>
-
-                                <div class="noti-scroll" data-simplebar>
-
-                                    <!-- item
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item active">
-                                        <div class="notify-icon">
-                                            <img src="{{url('assets/dashboard/images/users/user-1.jpg')}}" class="img-fluid rounded-circle')}}" alt="" /> </div>
-                                        <p class="notify-details">Aniversário</p>
-                                        <p class="text-muted mb-0 user-msg">
-                                            <small>Hoje é aniversário de ALUNO 1</small>
-                                        </p>
-                                    </a>
-                                    <!-- item
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-warning">
-                                            <i class="mdi mdi-account-plus"></i>
-                                        </div>
-                                        <p class="notify-details">New user registered.
-                                            <small class="text-muted">5 hours ago</small>
-                                        </p>
-                                    </a>
-
-                                </div>
-
-                                <!-- All
-                                <!-- <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
-                                    Ver Todos
-                                    <i class="fe-arrow-right"></i>
-                                </a>
-
-                            </div>
-                        </li>-->
-
                         <li class="dropdown notification-list topbar-dropdown">
                             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <!-- <img src="{{url('assets/dashboard/images/users/user-1.jpg')}}" alt="user-image" class="rounded-circle"> -->
                                 <span class="pro-user-name ml-1">
                                     {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i>
                                 </span>
@@ -128,12 +69,6 @@
                             </div>
                         </li>
 
-                        <!-- <li class="dropdown notification-list">
-                            <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
-                                <i class="fe-settings noti-icon"></i>
-                            </a>
-                        </li> -->
-
                     </ul>
 
                     <!-- LOGO -->
@@ -141,11 +76,9 @@
                         <a href="{{route('dashboard')}}" class="logo logo-dark text-center">
                             <span class="logo-sm">
                                 <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="22">
-                                <!-- <span class="logo-lg-text-light">UBold</span> -->
                             </span>
                             <span class="logo-lg">
-                                <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="20">
-                                <!-- <span class="logo-lg-text-light">U</span> -->
+                                <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="40">
                             </span>
                         </a>
 
@@ -154,7 +87,7 @@
                                 <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="20">
+                                <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="40">
                             </span>
                         </a>
                     </div>
@@ -221,7 +154,6 @@
 
                             <li>
                                 <a href="{{route('animais.index')}}">
-                                    <!-- <i class="fas fa-cat"></i> -->
                                     <i class="fas fa-paw"></i>
                                     <span> Cadastro de Animais </span>
                                 </a>
@@ -229,19 +161,11 @@
 
                             <li>
                                 <a href="{{route('produtos.index')}}">
-                                    <!-- <i class="icon-people"></i> -->
                                     <i class="mdi mdi-truck-outline"></i>
                                     <span> Cadastro de Produtos </span>
                                 </a>
                             </li>
 
-                            <!-- <li>
-                                <a href="{{route('procedimentos.index')}}">
-
-                                    <i class="mdi mdi-stethoscope"></i>
-                                    <span> Procedimentos </span>
-                                </a>
-                            </li> -->
                             <li>
                                 <a href="#sidebarProcedures" data-toggle="collapse">
                                     <i class="mdi mdi-stethoscope"></i>
@@ -262,12 +186,6 @@
                                 </div>
                             </li>
 
-                            <!-- <li>
-                                <a href="{{route('dashboard')}}">
-                                    <i data-feather="book-open"></i>
-                                    <span> Relatórios </span>
-                                </a>
-                            </li> -->
                             <li>
                                 <a href="#sidebarReports" data-toggle="collapse">
                                     <i data-feather="book-open"></i>
@@ -277,7 +195,7 @@
                                 <div class="collapse" id="sidebarReports">
                                     <ul class="nav-second-level">
                                         <li>
-                                            <a href="{{route('generate-pdf',['type'=>2])}}">Todos procedimentos por mês/cliente
+                                            <a target="_blank" href="{{route('generate-pdf',['type'=>2])}}">Todos procedimentos por mês/cliente
                                             </a>
                                         </li>
                                         <li>
@@ -287,12 +205,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <!-- <li>
-                                <a href="{{route('dashboard')}}">
-                                    <i data-feather="clipboard"></i>
-                                    <span> Usuários </span>
-                                </a>
-                            </li> -->
+
                         </ul>
 
                     </div>
@@ -371,7 +284,6 @@
         <script>
             $('#sidebarReports').removeClass( "show" )
 
-            //$('#sidebarProcedures').removeClass( "show" )
         </script>
 
         @if(Route::is('procedimentos.*') || Route::is('gera-procedimento.*'))

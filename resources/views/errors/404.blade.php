@@ -22,7 +22,7 @@
 
     </head>
 
-    <body class="loading authentication-bg authentication-bg-pattern" style="background: linear-gradient(90deg, #000 0%, #444 100%);">
+    <body class="loading authentication-bg authentication-bg-pattern" style="background: linear-gradient(90deg, #6c757d 0%, #444 100%);">
 
         <div class="account-pages mt-5 mb-5">
             <div class="container">
@@ -101,7 +101,7 @@
         <!-- end page -->
 
         <footer class="footer footer-alt">
-            <script>document.write(new Date().getFullYear())</script> Desenvolvido por <a href="https://www.taticaweb.com.br" target="_blank" class="text-white-50">Tática Web</a> 
+            <script>document.write(new Date().getFullYear())</script> Desenvolvido por <a href="https://porfiriodev.vercel.app" target="_blank" class="text-white-50">Porfírio</a>
         </footer>
 
         <!-- Vendor js -->

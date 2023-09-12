@@ -27,10 +27,8 @@ class ClienteController extends Controller
     {
         if(Auth::check()){
             $clientes = Clientes::all();
-          
-             //dd($clientes);
              return view('dashboard/dash-cliente', compact('clientes'));
-            
+
         }
     }
 
@@ -52,19 +50,21 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = new Clientes;
-        //dd($request->all());
+        try{
+            $cliente = new Clientes();
+            $cliente->cpf = $request->input('cpf');
+            $cliente->cnpj = $request->input('cnpj');
+            $cliente->nome = $request->input('nome');
+            $cliente->data_nascimento = $request->input('data_nascimento');
+            $cliente->razao_social = $request->input('razao_social');
+            $cliente->nome_fantasia = $request->input('nome_fantasia');
+            $cliente->endereco = $request->input('endereco');
 
-        $cliente->cpf = $request->input('cpf');
-        $cliente->cnpj = $request->input('cnpj');
-        $cliente->nome = $request->input('nome');
-        $cliente->data_nascimento = $request->input('data_nascimento');
-        $cliente->razao_social = $request->input('razao_social');
-        $cliente->nome_fantasia = $request->input('nome_fantasia');
-        $cliente->endereco = $request->input('endereco');
-        
-        $cliente->save();
-        
+            $cliente->save();
+        }
+        catch(\Exception $e){
+            return redirect(route('clientes.index'))->with('error','Ocorreu um erro');
+        }
         return redirect(route('clientes.index'));
     }
 
@@ -102,17 +102,22 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Clientes $clientes, $id)
     {
-        $cliente = Clientes::find($id);
-        
-        $cliente->cpf = $request->input('cpf');
-        $cliente->cnpj = $request->input('cnpj');
-        $cliente->nome = $request->input('nome');
-        $cliente->data_nascimento = $request->input('data_nascimento');
-        $cliente->razao_social = $request->input('razao_social');
-        $cliente->nome_fantasia = $request->input('nome_fantasia');
-        $cliente->endereco = $request->input('endereco');
+        try{
+            $cliente = Clientes::find($id);
 
-        $cliente->save();
+            $cliente->cpf = $request->input('cpf');
+            $cliente->cnpj = $request->input('cnpj');
+            $cliente->nome = $request->input('nome');
+            $cliente->data_nascimento = $request->input('data_nascimento');
+            $cliente->razao_social = $request->input('razao_social');
+            $cliente->nome_fantasia = $request->input('nome_fantasia');
+            $cliente->endereco = $request->input('endereco');
+
+            $cliente->save();
+        }
+        catch(\Exception $e){
+            return redirect(route('clientes.index'))->with('error','Erro'. $e->getMessage());
+        }
         return redirect('clientes.index');
     }
 

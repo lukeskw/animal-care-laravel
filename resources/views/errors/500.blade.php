@@ -21,7 +21,7 @@
 
     </head>
 
-    <body class="loading authentication-bg authentication-bg-pattern" style="background: linear-gradient(90deg, #000 0%, #444 100%);">
+    <body class="loading authentication-bg authentication-bg-pattern" style="background: linear-gradient(90deg, #6c757d 0%, #444 100%);">
 
         <div class="account-pages mt-5 mb-5">
             <div class="container">
@@ -30,14 +30,14 @@
                         <div class="card bg-pattern">
 
                             <div class="card-body p-4">
-                                
+
                                 <!-- <div class="auth-logo">
                                     <a href="index.html" class="logo logo-dark text-center">
                                         <span class="logo-lg">
                                             <img src="../assets/images/logo-dark.png" alt="" height="22">
                                         </span>
                                     </a>
-                
+
                                     <a href="index.html" class="logo logo-light text-center">
                                         <span class="logo-lg">
                                             <img src="../assets/images/logo-light.png" alt="" height="22">
@@ -67,7 +67,7 @@
 
 
         <footer class="footer footer-alt">
-        <script>document.write(new Date().getFullYear())</script> Desenvolvido por <a href="https://www.taticaweb.com.br" target="_blank" class="text-white-50">Tática Web</a> 
+        <script>document.write(new Date().getFullYear())</script> Desenvolvido por <a href="https://porfiriodev.vercel.app" target="_blank" class="text-white-50">Porfírio</a>
         </footer>
 
         <!-- Vendor js -->
@@ -75,6 +75,6 @@
 
         <!-- App js -->
         <script src="{{url('assets/dashboard/js/app.min.js')}}"></script>
-        
+
     </body>
 </html>

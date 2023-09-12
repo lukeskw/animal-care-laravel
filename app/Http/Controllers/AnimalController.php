@@ -28,8 +28,6 @@ class AnimalController extends Controller
      {
          if(Auth::check()){
             $animais = Animal::all();
-            // $tipos = ['Felino', 'Canino','Equino','Caprino','Bovino','Ave','Reptil'];
-            //dd($animal);
             return view('dashboard/dash-animal', compact('animais'));
 
          }
@@ -54,9 +52,8 @@ class AnimalController extends Controller
      public function store(Request $request)
      {
          $animais = new Animal();
-         //dd($request->all());
 
-         $animais->nome = $request->input('nome');
+         $animais->animal_nome = $request->input('nome');
          $animais->chip = $request->input('chip');
          $animais->tipo = $request->input('tipo');
          $animais->porte = $request->input('porte');

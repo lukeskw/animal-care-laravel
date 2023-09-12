@@ -22,21 +22,21 @@
 
     </head>
 
-    <body class="loading authentication-bg authentication-bg-pattern" style="background: linear-gradient(90deg, #000 0%, #444 100%);">
+    <body class="loading authentication-bg authentication-bg-pattern" style="background: linear-gradient(90deg, #6c757d 0%, #444 100%);">
 
         <div class="account-pages mt-5 mb-5">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
-                        <div class="card bg-pattern">
+                        <div class="card">
 
                             <div class="card-body p-4">
-                                
-                                <div class="text-center w-75 m-auto">
+
+                                <div class="text-center w-75 m-auto logout-icon">
                                     <div class="auth-logo">
                                         <a href="{{route('home')}}" class="logo logo-dark text-center">
                                             <span class="logo-lg">
-                                                <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="22">
+                                                <img src="{{url('assets/dashboard/images/logo.png')}}" alt="" height="40">
                                             </span>
                                         </a>
 
@@ -64,8 +64,8 @@
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <p class="text-white-50">Voltar para a tela de 
-                                   
+                                <p class="text-white-50">Voltar para a tela de
+
                                     <a href="{{route('login')}}" class="text-white ml-1">
                                         <b>Log In</b></a></p>
                             </div> <!-- end col -->
@@ -82,7 +82,7 @@
 
 
         <footer class="footer footer-alt">
-        <script>document.write(new Date().getFullYear())</script> Desenvolvido por <a href="https://www.taticaweb.com.br" target="_blank" class="text-white-50">Tática Web</a> 
+        <script>document.write(new Date().getFullYear())</script> Desenvolvido por <a href="https://porfiriodev.vercel.app" target="_blank" class="text-white-50">Porfírio</a>
         </footer>
 
         <!-- Vendor js -->
@@ -90,11 +90,11 @@
 
         <script>
             setTimeout(function () {
-                window.location.href= "{{route('home')}}" // the redirect goes here
+                window.location.href= "{{route('home')}}"
                 },5000); // 5 seconds
         </script>
         <!-- App js -->
         <script src="{{url('assets/dashboard/js/app.min.js')}}"></script>
-        
+
     </body>
 </html>

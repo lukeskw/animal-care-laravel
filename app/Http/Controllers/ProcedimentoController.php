@@ -37,7 +37,6 @@ class ProcedimentoController extends Controller
             ->join('procedimentos', 'procedimentos.id', '=', 'pp.procedimento_id')
             ->select('*')
             ->get();
-           // dd($produto_proced);
             $produtos = json_encode($produtos, true);
             return view('dashboard/dash-procedimento', compact('procedimentos', 'produtos','produto_proced'));
 
@@ -70,25 +69,20 @@ class ProcedimentoController extends Controller
             return redirect(route('procedimentos.index'))->with('error','Nenhum Produto Informado!!!');
         }
         function array_has_dupes($array) {
-            // streamline per @Felix
             return count($array) !== count(array_unique($array));
          }
         if(array_has_dupes($select)){
             return redirect(route('procedimentos.index'))->with('error','Não foi possivel salvar, um ou mais produtos duplicados!!!');
         }
-        //dd(count($array));
         $procedimentos->procedimento_nome = $request->input('procedimento_nome');
         $procedimentos->procedimento_valor = $request->input('procedimento_valor');
         $procedimentos->procedimento_descricao = $request->input('procedimento_descricao');
         $ldate = date('Y-m-d H:i:s');
         $procedimentos->save();
-        //dd($procedimentos->id);
-       // for($i=0 ; $i< count($array); $i++){
+
         if($select){
         foreach($select as $key=>$a) {
-       // dump($select);
-        //dump($qtd[$key]);
-        //dd($a);
+
         DB::table('produtos_procedimentos')->insert([
             'produto_id' => $a,
             'procedimento_id' => $procedimentos->id,
@@ -97,7 +91,6 @@ class ProcedimentoController extends Controller
             'updated_at' => $ldate
             ]);
         }}
-        // //$produtos->produto_quantidade = $request->input('produto_quantidade');
 
         return redirect(route('procedimentos.index'));
     }
@@ -128,7 +121,7 @@ class ProcedimentoController extends Controller
             $produtosJson = json_encode($produtos, true);
             $prod_proced = DB::table('produtos_procedimentos as pp')
             ->join('produtos', 'produtos.id', '=', 'pp.produto_id')->where('procedimento_id', $procedimentoId->id)->get();
-           // dd($prod_proced);
+
             return view('dashboard/dash-procedimentoEdit', compact('produtos','produtosJson', 'procedimentoId','prod_proced'));
             }
     }
@@ -152,7 +145,6 @@ class ProcedimentoController extends Controller
             return redirect(route('procedimentos.edit', $id))->with('error','Nenhum Produto Informado!!!');
         }
         function array_has_dupe($array) {
-            // streamline per @Felix
             return count($array) !== count(array_unique($array));
          }
         if(array_has_dupe($select)){
@@ -163,8 +155,7 @@ class ProcedimentoController extends Controller
         $procedimentos->procedimento_descricao = $request->input('procedimento_descricao');
         $ldate = date('Y-m-d H:i:s');
         $procedimentos->save();
-//dd($request->all());
-DB::table('produtos_procedimentos')->where('procedimento_id', '=', $id)->delete();
+        DB::table('produtos_procedimentos')->where('procedimento_id', '=', $id)->delete();
         foreach($select as $key=>$a) {
 
 

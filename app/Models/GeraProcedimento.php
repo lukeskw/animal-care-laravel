@@ -38,8 +38,18 @@ class GeraProcedimento extends Model
 
 
 
-    //  public function produtos()
-    //  {
-    //      return $this->hasMany(Produto::class);
-    //  }
+     public function animal()
+     {
+         return $this->belongsTo(Animal::class);
+     }
+
+     public function cliente()
+     {
+         return $this->belongsTo(Clientes::class);
+     }
+
+     public function procedimento()
+     {
+         return $this->belongsTo(Procedimento::class);
+     }
 }

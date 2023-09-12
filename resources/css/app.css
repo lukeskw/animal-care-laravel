@@ -1,3 +1,21 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+html,body {
+    margin: 0;
+    padding: 0;
+  }
+
+.gradient-bg-green::before {
+    background: linear-gradient(to bottom, rgba(248,80,50,0) 0%, rgba(229,105,54,0) 20%, rgba(152,203,70,1) 100%);
+}
+
+.gradient-bg-orange::before {
+    background: linear-gradient(to bottom, rgba(248,80,50,0) 0%, rgba(247,83,53,0) 20%, rgba(241,95,66,1) 100%);
+}
+
+.gradient-bg-blue::before {
+    background: linear-gradient(to bottom, rgba(248,80,50,0) 0%, rgba(213,100,86,0) 20%, rgba(75,178,230,1) 100%);
+}
+

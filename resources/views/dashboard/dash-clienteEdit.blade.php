@@ -4,23 +4,23 @@
            <!-- ============================================================== -->
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
-                    
+
             <div class="content-page">
                 <div class="content">
 
                     <!-- Start Content-->
                     <div class="container-fluid">
-                        
+
                         <!-- start page title -->
                         <div class="row">
                             <div class="col-12">
                                     <h4 class="page-title mt-4">clientes</h4>
                                 </div>
                             </div>
-                        </div>     
-                        <!-- end page title --> 
+                        </div>
+                        <!-- end page title -->
 
-                       
+
                         <!-- end row -->
                         <link href="{{url('assets/dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
                         <link href="{{url('assets/dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -30,10 +30,10 @@
                         <script src="{{url('assets/dashboard/libs/pdfmake/build/vfs_fonts.js')}}"></script>
                         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
                         crossorigin="anonymous"></script>
-                        
+
                         <div class="card-body">
                         <div class="form-group">
-                                                 
+
                             <form role="form" action="{{ route('clientes.update', $clienteId->id) }}" method="POST" enctype="multipart/form-data" id="formEditcliente" autocomplete="on" >
                                 @method('PUT')
                                 @csrf
@@ -86,19 +86,19 @@
                                                     <input type="text" class="form-control" name="endereco" placeholder="Insira o endereço" value="{{isset($clienteId->endereco) ? $clienteId->endereco : '' }}">
                                                 </div>
                                             </div>
-                                            
+
 
                                             <button type="submit" class="btn btn-success my-1 mr-2" name="addCliente" value="adicionarCliente">Adicionar</button>
                                             <a class="btn btn-danger my-1" id="cancelEdit" name="cancelEdit" value="cancelEdit" style="color:white;" href="{{ route('clientes.index')}}">Cancelar</a>
                                         </div>
                                     </div>
                             </form>
-                            
 
-                            </div>   
-    
-                            
-                            
+
+                            </div>
+
+
+
                                         <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                             <thead>
                                                 <tr>
@@ -106,13 +106,13 @@
                                                     <th>Nome/Razão Social</th>
                                                     <th>Endereço</th>
                                                     <th>CPF/CNPJ</th>
-                                                                                                        
+
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                        
+
                                             <tbody>
-                                            
+
                                                 <tr>
                                                     <td>{{$clienteId->id}}</td>
                                                     @if($clienteId->nome)
@@ -132,17 +132,17 @@
                                                             @method('DELETE')
 
                                                             <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                                                            
+
                                                     </form>
                                                     </td>
-                                                      
+
                                                 </tr>
-        
+
                                             </tbody>
                                         </table>
-                                        
+
                                     </div> <!-- end card body-->
-                        
+
                     </div><!--  container -->
 
                 </div> <!-- content -->
@@ -153,7 +153,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="text-md-right justify-content-end d-none d-sm-block">
-                                    <script>document.write(new Date().getFullYear())</script> - Desenvolvido por <strong><a href="https://www.taticaweb.com.br/" target="_blank">Tática Web</a></strong>
+                                    <script>document.write(new Date().getFullYear())</script> - Desenvolvido por <strong><a href="https://porfiriodev.vercel.app/" target="_blank">Porfírio</a></strong>
                                 </div>
                             </div>
                         </div>
@@ -198,23 +198,23 @@
                         e.preventDefault();
                         $("#formnovoCliente").hide(200);
                         $("#novoCliente").show(100);
-                        
-                });      
-                
+
+                });
+
                     $("#deleteTurma").click(function(e){
                         e.preventDefault();
                         $("#formEditCliente").hide();
                         $("#formnovoCliente").hide();
-                        
-                });   
-                
+
+                });
+
                 // if($('#flexRadioDefault1').prop('checked','checked')){
                 //     console.log('aki')
                 //     // $('#cpf').css('display','block');
                 //     // $('#cnpj').css('display','none');
                 //     $('#cnpj').hide();
                 //     $('#cpf').show();
-                    
+
                 // }else{
                 // // if($('#flexRadioDefault2').prop('checked','checked')){
                 //     console.log('aki2')
@@ -266,7 +266,7 @@
                     $('#data_nascimento').show(100)
                     $('#data_nascimento input').attr("required", true);
                     $('#endereco input').attr("required", true).val('');
-                    
+
                 }
                     } );
                     $("#flexRadioDefault2").on( "change", function() {
@@ -287,11 +287,11 @@
                     $('#razao_social input').attr("required", true);
                     $('#nome_fantasia').show(100);
                     $('#nome_fantasia input').attr("required", true);
-                    $('#endereco input').attr("required", true).val('');    
+                    $('#endereco input').attr("required", true).val('');
                     }
                         } );
                     });
-                  
+
             </script>
 
 @endsection

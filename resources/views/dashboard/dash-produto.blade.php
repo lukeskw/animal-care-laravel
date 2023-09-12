@@ -165,7 +165,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="text-md-right justify-content-end d-none d-sm-block">
-                                    <script>document.write(new Date().getFullYear())</script> - Desenvolvido por <strong><a href="https://www.taticaweb.com.br/" target="_blank">Tática Web</a></strong>
+                                    <script>document.write(new Date().getFullYear())</script> - Desenvolvido por <strong><a href="https://porfiriodev.vercel.app/" target="_blank">Porfírio</a></strong>
                                 </div>
                             </div>
                         </div>
