@@ -72,7 +72,7 @@ password
 
 ## Features
 - Homepage built with tailwind
-- Create new user
+- Create a new user
 - Complete Authentication
 - Register new clients
 - Register new animals
