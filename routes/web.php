@@ -10,7 +10,6 @@ use App\Http\Controllers\ProcedimentoController;
 use App\Http\Controllers\ProdutoController;
 
 Route::get('/home', function () {
-    //return redirect('https://www.taticaweb.com.br/site/cirac/index.php');
     return view('home');
 })->name('home');
 
@@ -30,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/clientes', ClienteController::class)->name('clientes','*');
 
-    Route::resource('/animais', AnimalController::class)->name('animais','*');
+    Route::resource('/animais', AnimalController::class)->name('animals','*');
 
     Route::resource('/produtos', ProdutoController::class)->name('produtos','*');
 

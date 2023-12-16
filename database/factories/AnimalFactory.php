@@ -22,7 +22,14 @@ class AnimalFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'animal_nome' => $this->faker->word,
+            'chip' => $this->faker->numerify('####'),
+            'tipo' => $this->faker->randomElement(['Felino', 'Canino', 'Equino']),
+            'porte' => $this->faker->randomElement(['Pequeno', 'Medio', 'Grande']),
+            'raca' => $this->faker->word,
+            'idade' => $this->faker->numberBetween(1, 5),
+            'obito_data' => $this->faker->dateTimeBetween('-1 year', '-1 hour')->format('Y-m-d'),
+            'obito_causa' => $this->faker->sentence,
         ];
     }
 }

@@ -13,10 +13,17 @@ trait CreatesApplication
      */
     public function createApplication()
     {
+
+        putenv("DB_CONNECTION=sqlite");
+
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 
+        config(['database.default' => 'sqlite_testing']);
+
         return $app;
+
+
     }
 }

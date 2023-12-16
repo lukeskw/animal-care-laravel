@@ -43,7 +43,7 @@
                                             <div class="col-md-12 d-flex my-3">
                                                 <div id="nome" class="col-md-4">
                                                     <label>Nome</label>
-                                                    <input required type="text" class="form-control" name="nome" placeholder="Insira o nome do animal" value="{{isset($animalId->animal_nome) ? $animalId->animal_nome : '' }}">
+                                                    <input required type="text" class="form-control" name="animal_nome" placeholder="Insira o nome do animal" value="{{isset($animalId->animal_nome) ? $animalId->animal_nome : '' }}">
                                                 </div>
                                                 <div id="chip" class="col-md-3">
                                                     <label>Nº do Chip</label>

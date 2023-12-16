@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Animal extends Model
 {
-    // use HasFactory;
-     
+    use HasFactory;
+
      /**
       * The attributes that are mass assignable.
       *
       * @var array
       */
      protected $fillable = [
-        'nome',
+        'animal_nome',
         'chip',
         'tipo',
         'porte',
@@ -25,8 +25,9 @@ class Animal extends Model
         'obito_causa',
     ];
 
- 
-     
+
+    protected $guarded = ['_token'];
+
      /**
       * The attributes that should be cast to native types.
       *

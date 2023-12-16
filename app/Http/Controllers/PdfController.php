@@ -17,11 +17,6 @@ class PdfController extends Controller
       *
       * @return void
       */
-      public function __construct()
-      {
-          $this->middleware('auth');
-      }
-
 
       /**
      * Show the form for generating the specified page.

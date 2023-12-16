@@ -42,7 +42,7 @@
                                             <div class="col-md-12 d-flex my-3">
                                                 <div id="nome" class="col-md-4">
                                                     <label>Nome</label>
-                                                    <input type="text" required class="form-control" name="nome" placeholder="Insira o nome do animal" value="">
+                                                    <input type="text" required class="form-control" name="animal_nome" placeholder="Insira o nome do animal" value="">
                                                 </div>
                                                 <div id="chip" class="col-md-3">
                                                     <label>Nº do Chip</label>
@@ -140,7 +140,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach ($animais as $animal)
+                                            @foreach ($animals as $animal)
                                                 <tr>
                                                     <td>{{$animal->id}}</td>
 

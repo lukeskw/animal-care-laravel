@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\AnimalRequest;
 use App\Models\Animal;
-use App\Models\Clientes;
-use Illuminate\Support\Facades\Auth;
+use App\Services\AnimalService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class AnimalController extends Controller
 {
@@ -14,29 +15,34 @@ class AnimalController extends Controller
       *
       * @return void
       */
-     public function __construct()
-     {
-         $this->middleware('auth');
-     }
+
+      private $model;
+      private $service;
+
+      public function __construct(
+        Animal $animal
+        )
+      {
+        $this->model = $animal;
+        $this->service = new AnimalService($this->model);
+      }
 
      /**
       * Display a listing of the resource.
       *
-      * @return \Illuminate\Http\Response
+      * @return Illuminate\Contracts\View\View
       */
-     public function index()
+     public function index(): View
      {
-         if(Auth::check()){
-            $animais = Animal::all();
-            return view('dashboard/dash-animal', compact('animais'));
+        $animals = $this->service->getAll();
+        return view('dashboard/dash-animal', compact('animals'));
 
-         }
      }
 
      /**
       * Show the form for creating a new resource.
       *
-      * @return \Illuminate\Http\Response
+      * @return \Illuminate\Http\RedirectResponse
       */
      public function create()
      {
@@ -46,87 +52,68 @@ class AnimalController extends Controller
      /**
       * Store a newly created resource in storage.
       *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
+      * @param  App\Http\Requests\AnimalRequest $request
+      * @return \Illuminate\Http\RedirectResponse
       */
-     public function store(Request $request)
+     public function store(AnimalRequest $request): RedirectResponse
      {
-         $animais = new Animal();
+        try{
+            $data = $request->all();
+            $this->service->create($data);
 
-         $animais->animal_nome = $request->input('nome');
-         $animais->chip = $request->input('chip');
-         $animais->tipo = $request->input('tipo');
-         $animais->porte = $request->input('porte');
-         $animais->raca = $request->input('raca');
-         $animais->idade = $request->input('idade');
-         $animais->obito_data = $request->input('obito_data');
-         $animais->obito_causa = $request->input('obito_causa');
 
-         $animais->save();
+        } catch (\Exception $e){
+            throw $e;
+        }
 
          return redirect(route('animais.index'));
      }
 
-     /**
-      * Display the specified resource.
-      *
-      * @param  \App\Models\Clientes  $clientes
-      * @return \Illuminate\Http\Response
-      */
-     public function show(Clientes $clientes)
+    //  /**
+    //   * Show the form for editing the specified resource.
+    //   *
+    //   * @param  int  $id
+    //   * @return Illuminate\Contracts\View\View
+    //   */
+     public function edit($id): View
      {
-         //
-     }
-
-     /**
-      * Show the form for editing the specified resource.
-      *
-      * @param  \App\Models\Clientes  $clientes
-      * @param  int  $id
-      * @return \Illuminate\Http\Response
-      */
-     public function edit(Clientes $clientes, $id)
-     {
-         $animalId = Animal::find($id);
+         $animalId = $this->service->find($id);
          return view('dashboard/dash-animalEdit', compact('animalId'));
      }
 
-     /**
-      * Update the specified resource in storage.
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @param  int  $id
-      * @param  \App\Models\Clientes  $clientes
-      * @return \Illuminate\Http\Response
-      */
-     public function update(Request $request, Clientes $clientes, $id)
+    //  /**
+    //   * Update the specified resource in storage.
+    //   *
+    //   * @param  App\Http\Requests\AnimalRequest $request
+    //   * @param  int  $id
+    //   * @return \Illuminate\Http\RedirectResponse
+    //   */
+     public function update(AnimalRequest $request, $id): RedirectResponse
      {
-         $animais = Animal::find($id);
+        try{
+            $data = $request->all();
+            $this->service->update($id, $data);
 
-         $animais->animal_nome = $request->input('nome');
-         $animais->chip = $request->input('chip');
-         $animais->tipo = $request->input('tipo');
-         $animais->porte = $request->input('porte');
-         $animais->raca = $request->input('raca');
-         $animais->idade = $request->input('idade');
-         $animais->obito_data = $request->input('obito_data');
-         $animais->obito_causa = $request->input('obito_causa');
+        }catch(\Exception $e){
+            throw $e;
+        }
 
-         $animais->save();
          return redirect('animais');
      }
 
-     /**
-      * Remove the specified resource from storage.
-      *
-      * @param  \App\Models\Clientes  $clientes
-      * @param  int  $id
-      * @return \Illuminate\Http\Response
-      */
-     public function destroy(Clientes $clientes, $id)
+    //  /**
+    //   * Remove the specified resource from storage.
+    //   *
+    //   * @param  int  $id
+    //   * @return \Illuminate\Http\RedirectResponse
+    //   */
+     public function destroy($id): RedirectResponse
      {
-         $animais = Animal::find($id);
-         $animais->delete();
+         try{
+            $this->service->delete($id);
+         }catch(\Exception $e){
+            throw $e;
+        }
          return redirect(route('animais.index'));
      }
  }
